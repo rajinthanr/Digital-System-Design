@@ -8,10 +8,10 @@ module sequence_tb;
 	reg clk;
 	
 	Sequence_Detector sd(
-	//.data_in(data_stream[31]),
+	.data_in(data_stream[31]),
 	.out(out),
-	.clk(clk)
-	//.reset_en(reset_en)
+	.clk(clk),
+	.reset_en(reset_en)
 	);
 	integer i;
 	
