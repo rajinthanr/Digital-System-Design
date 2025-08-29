@@ -1,0 +1,5 @@
+{
+   "verilog.formatting.iStyleVerilogFormatter.arguments": "",
+   "verilog.formatting.verilogHDL.formatter": "iStyle",
+   "verilog.languageServer.hdlChecker.enabled": false
+}
