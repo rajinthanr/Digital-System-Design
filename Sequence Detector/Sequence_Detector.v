@@ -1,43 +1,43 @@
 module Sequence_Detector(
-		  input reset_en,				//non repetitive enable pin
+        input reset_en,				//non repetitive enable pin
         input wire clk,             // 50 MHz clock input
         input wire data_in,			//serial data in
-		  output reg out					//flag to indicate pattern detection
-);
-	
-	reg [3:0] sr=4'b1111;				//4bit shift register
-	
-	reg [3:0] target = 4'b0110;		//pattern to be detected
-	wire flag;
-	reg [7:0]count=6;
-	wire f;
-	
-	assign f=flag && reset_en;
-	assign flag = (sr==target)? 1'b1:1'b0;
-	
+        output reg out					//flag to indicate pattern detection
+    );
+
+    reg [3:0] sr=4'b1111;				//4bit shift register
+
+    reg [3:0] target = 4'b0110;		//pattern to be detected
+    wire flag;
+    reg [7:0]count=6;
+    wire f;
+
+    assign f=flag && reset_en;
+    assign flag = (sr==target)? 1'b1:1'b0;
+
 
     always @(posedge clk or posedge f) begin
-		if(f)                			//non repetitive
-			sr = 4'b1111;
-	
-		else
-			begin
-			sr[0]<=sr[1];					//record incomming bits
-			sr[1]<=sr[2];
-			sr[2]<=sr[3];
-			sr[3]<=data_in;
-		end
+        if(f)                			//non repetitive
+            sr = 4'b1111;
+
+        else
+        begin
+            sr[0]<=sr[1];					//record incomming bits
+            sr[1]<=sr[2];
+            sr[2]<=sr[3];
+            sr[3]<=data_in;
+        end
     end
-	 
-	 
-	 always @(posedge flag or posedge clk)
-		begin
-			if(flag) begin
-					out = 1;					//keep output for one clock cycle
-				end
-			else
-				out=0;
-		end
-	 
+
+
+    always @(posedge flag or posedge clk)
+    begin
+        if(flag) begin
+            out = 1;					//keep output for one clock cycle
+        end
+        else
+            out=0;
+    end
+
 
 endmodule
